@@ -28,7 +28,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN git submodule update --init --recursive
 RUN pnpm install --frozen-lockfile
 RUN cd packages/scramjet/packages/core && pnpm rewriter:build
 RUN pnpm build
