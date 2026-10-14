@@ -18,7 +18,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
     | sh -s -- -y --profile minimal
 
 RUN rustup target add wasm32-unknown-unknown
-RUN cargo install wasm-bindgen-cli --locked
+RUN cargo install wasm-bindgen-cli --version 0.2.105 --locked
 
 ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
 RUN cargo install wasm-snip --git https://github.com/r58playz/wasm-snip --locked
