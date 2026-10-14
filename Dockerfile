@@ -10,7 +10,7 @@ ENV PATH=/root/.local/share/pnpm:/root/.cargo/bin:$PATH
 
 # Scramjet's build script calls `cargo +nightly`.
 # Pin nightly so it does not silently select a broken/current nightly.
-ENV RUSTUP_TOOLCHAIN=nightly-2025-01-15
+ENV RUSTUP_TOOLCHAIN=nightly
 ENV RUSTUP_AUTO_INSTALL=0
 ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
 
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
     | sh -s -- -y --profile minimal --default-toolchain stable
 
-RUN rustup toolchain install nightly-2025-01-15 \
+RUN rustup toolchain install nightly \
     --profile minimal \
     --component rust-src \
     --target wasm32-unknown-unknown
