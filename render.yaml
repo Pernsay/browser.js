@@ -1,0 +1,25 @@
+# Optional: Render Blueprint (Infrastructure as Code).
+# Dashboard → New → Blueprint, point it at your fork, and Render creates this
+# service with every box already filled in. Delete this file if you'd rather
+# click through the dashboard - the values are identical either way.
+services:
+  - type: web
+    name: browser-js
+    runtime: node
+    plan: starter # 512 MB is enough for serving; the build runs elsewhere
+    region: sydney # pick the region closest to you
+    branch: main
+    buildCommand: bash render-build.sh
+    startCommand: node render-server.mjs
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      # Must be set BEFORE the first build: Vite bakes it into the bundle.
+      # Use wss:// because Render terminates TLS for you.
+      - key: VITE_WISP_URL
+        value: wss://browser-js.onrender.com/
+      # "none" = run the scramjet controller on the same origin.
+      # See the guide for the fully isolated (two-origin) setup.
+      - key: VITE_ISOLATION_ORIGIN
+        value: none
